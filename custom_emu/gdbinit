@@ -1,0 +1,4 @@
+#b *execution_loop+12
+b do_syscall
+disp/16gx &reg
+
