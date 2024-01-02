@@ -40,7 +40,7 @@ class Translator:
 	def jump(op, addr_reg, cond_reg, imm):
 		global code, label_refs
 		return bytes([0x60 + ("jmp", "je").index(op)]) + \
-			bytes([(get_register(addr_reg) << 4) | get_register(cond_reg)]) + p64(imm)
+			bytes([(get_register(addr_reg) << 4) | get_register(cond_reg)]) + p64(int(imm))
 	
 	@staticmethod
 	def string_literal(op, *parts):
@@ -50,6 +50,10 @@ class Translator:
 	@staticmethod
 	def sp_up(op):
 		return b"\x70"
+	
+	@staticmethod
+	def breakpoint(op):
+		return b"\x62"
 
 Translator.functions_map = {
 	"push": Translator.push,
@@ -65,7 +69,8 @@ Translator.functions_map = {
 	"jmp": Translator.jump,
 	"je": Translator.jump,
 	"spup": Translator.sp_up,
-	".string": Translator.string_literal
+	".string": Translator.string_literal,
+	".break": Translator.breakpoint
 }
 
 def get_register(name):
