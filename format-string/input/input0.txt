@@ -1,0 +1,4 @@
+My number: %d %u. Also look at this: %s
+n-10
+n10
+sRandom string
