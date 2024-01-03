@@ -13,7 +13,6 @@ int main(int argc, char const *argv[])
         exit(1);
     }
     int test_name = atoi(argv[1]);
-    printf("Testing test %d\n", test_name);
     // Open the input file
     char filename_buffer[32];
     sprintf(filename_buffer, "input/input%d.txt", test_name);
@@ -28,32 +27,23 @@ int main(int argc, char const *argv[])
     fgets(format_line, sizeof(format_line), input);
     while (!feof(input)) {
         fgets(current_line, sizeof(current_line), input);
-        switch (current_line[0])
-        {
+        switch (current_line[0]) {
         case 'n':
             int64_t value = strtol(current_line + 1, NULL, 10);
             *((int64_t *) (stack + stack_end)) = value;
             stack_end += 8;
-            printf("Read int of %ld\n", value);
             break;
         case 's':
             char *buffer = malloc(1024);
             strcpy(buffer, current_line + 1);
             *((uint64_t *) (stack + stack_end)) = (uint64_t) buffer;
             stack_end += 8;
-            printf("Read string of %s\n", current_line);
             break;
         default:
             printf("Invalid line identifier: %c\n", current_line[0]);
             exit(1);
         }
     }
-    // Print for sanity check
-    puts(format_line);
-    for (int i = 0; i < stack_end; i++) {
-        printf("%hhx ", stack[i]);
-    }
-    puts("");
     // Execute the things
     test_printf(format_line, stack, stack_end);
     return 0;

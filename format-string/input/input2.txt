@@ -1,4 +1,0 @@
-%d%u%s
-n-10
-n10
-sRandom string
