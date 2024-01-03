@@ -1,6 +1,5 @@
 یک subroutine بنویسید که یک نسخه‌ی ساده شده‌ی تابع printf باشد. به این تابع در ابتدا آدرس رشته‌ی format string در رجیستر RDI باید پاس داده شود. سپس بقیه‌ی آرگومان‌های تابع باید در استک طوری به تابع پاس داده شوند که اولین آرگومان در پایین ترین آدرس استک، بالای return address قرار داشته باشد.
 تابع شما باید از سه نوع format specifier پشتیبانی بکند:
-%c: برای چاپ یک کارکتر 1 بایتی به کار می‌رود.
 %s: برای چاپ یک رشته null terminated به کار می‌رود.
 %u: یک عدد 64 بیتی unsigned را چاپ می‌کند.
 %d: یک عدد 64 بیتی signed را چاپ می‌کند.
@@ -8,7 +7,6 @@
 ```asm
 print_stuff:
     sub rsp, 1
-    mov BYTE PTR [rsp], '!'
     push OFFSET RANDOM_STRING
     mov rax, -10
     push rax
@@ -19,6 +17,6 @@ print_stuff:
 
 
 .data
-FORMAT_STRING: .string "My number: %d %u. Also look at this: %s %c\n"
+FORMAT_STRING: .string "My number: %d %u. Also look at this: %s\n"
 RANDOM_STRING: .string "Random string!"
 ```
