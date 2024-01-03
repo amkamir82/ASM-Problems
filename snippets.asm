@@ -13,11 +13,10 @@
     xor      rdi,rdx
     shr      rdi,1
     add      rdi,rsi
+    
     ; 3
-.data
-    c2 byte 'a'
+    db c2  'a'
 
-.text
     mov al, c2
     and al, 5Fh
     mov c2, al
