@@ -1,28 +1,32 @@
 ; https://alexaltea.github.io/blog/posts/2016-10-12-xchg-rax-rax-solutions/
 .text:
     ; 0
-    not      rax
-    inc      rax
-    neg      rax
+    not      rbx
+    inc      rbx
+    neg      rbx
     ; 1
-    add      rax,rdx
+    add      rax,rcx
     rcr      rax,1
     ; 2
-    mov      rcx,rax
-    and      rcx,rdx
-
-    xor      rax,rdx
-    shr      rax,1
-
-    add      rax,rcx
-
+    mov      rsi,rdi
+    and      rsi,rdx
+    xor      rdi,rdx
+    shr      rdi,1
+    add      rdi,rsi
     ; 3
-    mov      rdx,rax
-    not      rdx
-    mov      rcx,0x8080808080808080
-    and      rdx,rcx
-    mov      rcx,0x0101010101010101
-    sub      rax,rcx
-    and      rax,rdx
+.data
+    c2 byte 'a'
 
+.text
+    mov al, c2
+    and al, 5Fh
+    mov c2, al
+    
     ; 4
+    mov      rbx,rax
+    not      rbx
+    mov      rdx,0x8080808080808080
+    and      rbx,rdx
+    mov      rdx,0x0101010101010101
+    sub      rax,rdx
+    and      rax,rbx
